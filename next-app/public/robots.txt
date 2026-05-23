@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tools-cl.com
+
+# Sitemaps
+Sitemap: https://tools-cl.com/sitemap.xml

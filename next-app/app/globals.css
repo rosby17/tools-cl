@@ -1,0 +1,334 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #06060f;
+  --text: #f0efff;
+  --muted: rgba(240, 239, 255, 0.45);
+  --muted2: rgba(240, 239, 255, 0.2);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-hover: rgba(255, 255, 255, 0.08);
+
+  --red:    #ff3d3d;
+  --orange: #ff8c42;
+  --cyan:   #00d4ff;
+  --purple: #b06dff;
+  --green:  #3dffa0;
+}
+
+/* Custom animations for background orbs */
+@keyframes drift1 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(60px, 80px) scale(1.08); }
+  66% { transform: translate(-40px, 40px) scale(0.95); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-80px, 60px) scale(1.1); }
+}
+@keyframes drift3 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  40% { transform: translate(50px, -60px) scale(1.05); }
+  80% { transform: translate(-30px, 40px) scale(0.92); }
+}
+
+/* ── TOOLS GRID ── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.tools-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.tool-card {
+  position: relative;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-decoration: none;
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: var(--card-glow, transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tool-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4), var(--card-shadow, none);
+}
+
+.tool-card:hover::before { opacity: 1; }
+
+/* Per-tool accent colours */
+.card-ytminia   { --card-glow: radial-gradient(circle at 0% 0%, rgba(255,61,61,0.08), transparent 60%); --card-shadow: 0 0 40px rgba(255,61,61,0.1); }
+.card-pdf       { --card-glow: radial-gradient(circle at 0% 0%, rgba(255,140,66,0.08), transparent 60%); --card-shadow: 0 0 40px rgba(255,140,66,0.1); }
+.card-script    { --card-glow: radial-gradient(circle at 0% 0%, rgba(0,212,255,0.08), transparent 60%); --card-shadow: 0 0 40px rgba(0,212,255,0.1); }
+.card-prenom    { --card-glow: radial-gradient(circle at 0% 0%, rgba(176,109,255,0.08), transparent 60%); --card-shadow: 0 0 40px rgba(176,109,255,0.1); }
+.card-piloto    { --card-glow: radial-gradient(circle at 0% 0%, rgba(61,255,160,0.08), transparent 60%); --card-shadow: 0 0 40px rgba(61,255,160,0.1); }
+
+.tool-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tool-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tool-arrow {
+  color: var(--muted2);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.tool-name {
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.tool-desc {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-top: auto;
+  width: fit-content;
+  font-weight: 500;
+}
+
+.chip-red    { background: rgba(255,61,61,0.1);   color: #ff8080;  border: 1px solid rgba(255,61,61,0.2);   }
+.chip-orange { background: rgba(255,140,66,0.1);  color: #ffb080;  border: 1px solid rgba(255,140,66,0.2);  }
+.chip-cyan   { background: rgba(0,212,255,0.1);   color: #80e8ff;  border: 1px solid rgba(0,212,255,0.2);   }
+.chip-purple { background: rgba(176,109,255,0.1); color: #d0a0ff;  border: 1px solid rgba(176,109,255,0.2); }
+.chip-green  { background: rgba(61,255,160,0.1);  color: #80ffcc;  border: 1px solid rgba(61,255,160,0.2);  }
+
+/* ── COMING SOON ── */
+.soon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.soon-card {
+  background: var(--glass);
+  border: 1px dashed rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0.5;
+}
+
+.soon-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--muted2);
+  flex-shrink: 0;
+}
+
+.soon-name {
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.soon-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.soon-eta {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+
+/* ── PROMO ── */
+.promo-card {
+  position: relative;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(110,0,255,0.5), rgba(255,0,60,0.3), rgba(0,60,255,0.4));
+  overflow: hidden;
+}
+
+.promo-inner {
+  background: linear-gradient(135deg, rgba(15,8,30,0.95), rgba(10,6,20,0.98));
+  border-radius: 22px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+.promo-inner::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(110,0,255,0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.promo-inner::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: 100px;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(255,0,60,0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.promo-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6e00ff, #ff003c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 0 40px rgba(110,0,255,0.4);
+  position: relative;
+  z-index: 1;
+}
+
+.promo-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.promo-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #c084fc;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.promo-name {
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #fff, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.promo-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 400px;
+}
+
+.btn-sub {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ff1a1a, #cc0000);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 30px;
+  font-family: 'Neue Montreal', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 8px 32px rgba(255,0,0,0.3);
+}
+
+.btn-sub:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(255,0,0,0.4);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .tools-grid-2 { grid-template-columns: 1fr; }
+  .soon-grid { grid-template-columns: 1fr; }
+  .promo-inner { flex-direction: column; padding: 36px 24px; gap: 28px; text-align: center; }
+  .promo-desc { max-width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .tools-grid { grid-template-columns: 1fr; }
+}
